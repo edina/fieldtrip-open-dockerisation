@@ -21,7 +21,7 @@ RUN apt-get install -y \
 	pip install --upgrade pip && \
 	pip install virtualenv
 
-COPY ./pcapi /var/www/pcapienv
+COPY ./include/pcapi /var/www/pcapienv
 
 RUN	cd /var/www && \
 	virtualenv pcapienv && \
@@ -30,27 +30,41 @@ RUN	cd /var/www && \
 	pip install -e . && \
 	chown -R www-data:www-data /var/www
 
-COPY ./000-default.conf /etc/apache2/sites-available
-
 # survey-designer related
-COPY ./survey-designer /var/www/survey-designer
+COPY ./include/survey-designer /var/www/survey-designer
 
 RUN apt-get -y install build-essential \
 	libssl-dev \
-	curl \ 
-	libfontconfig && \ 
+	curl \
+	libfontconfig && \
 	curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
 
 RUN . ~/.bashrc && \
 	nvm install 4.0 && \
 	nvm alias default v4.0
 
+RUN . ~/.bashrc && \
+	cd /var/www/survey-designer && \
+	npm install jspm@0.16.42 && \
+	npm install
+
 #RUN . ~/.bashrc && \
 #	cd /var/www/survey-designer && \
-#	npm install jspm@0.16.42 && \
-#	npm install && \
-#	./node_modules/jspm/jspm.js install && \
+#	./node_modules/jspm/jspm.js install -y && \
 #	npm run bundle
 
-#CMD /usr/sbin/apache2ctl -D FOREGROUND
+# survey-preview related
+COPY ./include/survey-preview /var/www/survey-preview
 
+RUN . ~/.bashrc && \
+	cd /var/www/survey-preview && \
+	npm install && \
+	npm run bundle
+
+# survey-viewer related
+COPY ./include/fieldtrip-viewer /var/www/fieldtrip-viewer
+
+COPY ./config_files/000-default.conf /etc/apache2/sites-available
+
+# When the container is initialised
+CMD /usr/sbin/apache2ctl -D FOREGROUND
