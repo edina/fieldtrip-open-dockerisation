@@ -1,22 +1,54 @@
 # fieldtrip-open-dockerisation
 
-Documentation work is ongoing
+This repository is intended to dockerise the fieldtrip-open ecosystem. This project requires a machine with docker installed
+in order to build the image for fieldtrip-open and consequently run containers.
 
-URLs: 
-	PCAPI:
-	http://localhost:8080/1.3/pcapi
-	survey-designer:
-	http://localhost:8080/sd
-	survey-preview:
-	http://localhost:8080/survey-preview
-	viewer:
-	http://localhost:8080/viewer/?sid=test.json
+The dockerised version of fieldtrip-open has some dependencies, i.e. a workable docker image required cloning its different
+submodules. If you have already cloned this repository, please type:
 
-Build the image:
+```bash
+	$git submodule init
+	$git submodule update
+```
+
+Otherwise, you can clone this repository and all its dependencies at once by typping:
+
+```bash
+	$git clone --recursive https://github.com/edina/fieldtrip-open-dockerisation.git 
+```
+
+## Build
+
+The process of building a docker image for fieldtrip-open requires:
+
+```bash
 	docker build -t fieldtrip-open .
+```
 
-Run a container for that image:
+Note that fieldtrip-open is the image name given but you can give to docker build another image name. We have ommitted the
+version so for your docker machine will automatically rename the version to 'latest'.
+
+## Run
+
+Once the docker image has been built, you will be able to create a container that runs the fieldtrip-open ecosystem. Please,
+type:
+
+```bash
 	docker run -p 8080:80 -d fieldtrip-open
+```
+
+The above command will execute a container on the port 8080 of your machine and it will be detached automatically. Remember,
+fieldtrip-open is the name given when docker build is executed.
+
+## Try it out! (this section is not completed yet)
+
+There are different endpoints for fieldtrip-open ecosystem:
+
+* PCAPI: http://localhost:8080/1.3/pcapi
+* Survey designer: http://localhost:8080/designer
+* Survey preview: http://localhost:8080/preview
+* Records viewer: http://localhost:8080/viewer?sid=test.json
+
 
 
 
