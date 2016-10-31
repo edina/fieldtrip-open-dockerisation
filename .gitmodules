@@ -1,12 +1,12 @@
 [submodule "pcapi"]
 	path = include/pcapi
-	url = git@github.com:cobweb-eu/pcapi.git
+	url = https://github.com/cobweb-eu/pcapi.git
 [submodule "survey-designer"]
 	path = include/survey-designer
-	url = git@github.com:edina/survey-designer.git
+	url = https://github.com/edina/survey-designer.git
 [submodule "survey-preview"]
 	path = include/survey-preview
-	url = git@github.com:edina/survey-preview.git
+	url = https://github.com/edina/survey-preview.git
 [submodule "fieldtrip-viewer"]
 	path = include/fieldtrip-viewer
-	url = git@github.com:edina/fieldtrip-viewer.git
+	url = https://github.com/edina/fieldtrip-viewer.git
