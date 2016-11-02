@@ -40,15 +40,16 @@ type:
 The above command will execute a container on the port 8080 of your machine and it will be detached automatically. Remember,
 fieldtrip-open is the name given when docker build is executed.
 
-## Try it out! (this section is not completed yet)
+## Try it out!
 
 There are different endpoints for fieldtrip-open ecosystem:
 
-* PCAPI: http://localhost:8080/1.3/pcapi
-* Survey designer: http://localhost:8080/designer
-* Survey preview: http://localhost:8080/preview
-* Records viewer: http://localhost:8080/viewer?sid=test.json
+* PCAPI: [http://0.0.0.0:8080/1.3/pcapi](http://0.0.0.0:8080/1.3/pcapi)
+* Survey designer: [http://0.0.0.0:8080/designer](http://0.0.0.0:8080/designer) (not working yet!)
+* Survey preview: [http://0.0.0.0:8080/preview/#/?sid=test](http://0.0.0.0:8080/preview/#/?sid=test)
+* Records viewer: [http://0.0.0.0:8080/viewer/?sid=test](http://0.0.0.0:8080/viewer/?sid=test)
 
+Remember to change the host/port if your docker container is not running on localhost port 8080.
 
 
 
