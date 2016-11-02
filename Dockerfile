@@ -66,5 +66,14 @@ COPY ./include/fieldtrip-viewer /var/www/fieldtrip-viewer
 
 COPY ./config_files/000-default.conf /etc/apache2/sites-available
 
+# Upload an example survey
+COPY ./include/survey_test.json /var/www
+
+RUN apt-get install -y curl
+
+RUN service apache2 start && \
+	cd /var/www && \
+	curl -v -H "Content-Type: application/json" -X PUT --data-binary "@survey_test.json" http://0.0.0.0/1.3/pcapi/editors/local/00000000-0000-0000-0000-000000000000/survey_test.json
+
 # When the container is initialised
 CMD /usr/sbin/apache2ctl -D FOREGROUND

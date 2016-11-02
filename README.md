@@ -7,8 +7,8 @@ The dockerised version of fieldtrip-open has some dependencies, i.e. a workable 
 submodules. If you have already cloned this repository, please type:
 
 ```bash
-	$git submodule init
-	$git submodule update
+	$git pull origin master
+	$git submodule foreach git pull origin master
 ```
 
 Otherwise, you can clone this repository and all its dependencies at once by typping:
@@ -45,9 +45,9 @@ fieldtrip-open is the name given when docker build is executed.
 There are different endpoints for fieldtrip-open ecosystem:
 
 * PCAPI: [http://0.0.0.0:8080/1.3/pcapi](http://0.0.0.0:8080/1.3/pcapi)
-* Survey designer: [http://0.0.0.0:8080/designer](http://0.0.0.0:8080/designer) (not working yet!)
-* Survey preview: [http://0.0.0.0:8080/preview/#/?sid=test](http://0.0.0.0:8080/preview/#/?sid=test)
-* Records viewer: [http://0.0.0.0:8080/viewer/?sid=test](http://0.0.0.0:8080/viewer/?sid=test)
+* Survey designer: [http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer](http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer) (not working yet!)
+* Survey preview: [http://0.0.0.0:8080/preview/#/?sid=survey_test](http://0.0.0.0:8080/preview/#/?sid=survey_test)
+* Records viewer: [http://0.0.0.0:8080/viewer/?sid=survey_test](http://0.0.0.0:8080/viewer/?sid=survey_test)
 
 Remember to change the host/port if your docker container is not running on localhost port 8080.
 
