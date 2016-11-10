@@ -2,10 +2,14 @@ FROM ubuntu:16.04
 
 MAINTAINER Jose Lloret - jose.lloret@ed.ac.uk
 
+ARG JSPM_GITHUB_AUTH
+
 # http related
 RUN apt-get update && \
 	apt-get -y install apache2 && \
 	a2enmod headers
+
+COPY ./config_files/000-default.conf /etc/apache2/sites-available
 
 EXPOSE 80
 
@@ -31,22 +35,43 @@ RUN	cd /var/www && \
 	chown -R www-data:www-data /var/www
 
 # survey-designer related
+
+RUN apt-get -y install \
+        	nodejs \
+       		npm
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
 COPY ./include/survey-designer /var/www/survey-designer
 
-RUN apt-get -y install build-essential \
-	libssl-dev \
-	curl \
-	libfontconfig && \
-	curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+WORKDIR /var/www/survey-designer
 
-RUN . ~/.bashrc && \
-	nvm install 4.0 && \
-	nvm alias default v4.0
+RUN npm install
 
-RUN . ~/.bashrc && \
-	cd /var/www/survey-designer && \
-	npm install jspm@0.16.42 && \
-	npm install
+RUN apt-get -y install git
+
+RUN ./node_modules/jspm/jspm.js config registries.github.auth ${JSPM_GITHUB_AUTH}
+
+RUN ./node_modules/jspm/jspm.js install -y
+
+RUN npm run bundle
+
+#RUN apt-get -y install build-essential \
+#	libssl-dev \
+#	curl \
+#	libfontconfig && \
+#	curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+
+#RUN . ~/.bashrc && \
+#	nvm install 4.0 && \
+#	nvm alias default v4.0
+
+# COPY ./include/survey-designer /var/www/survey-designer
+
+#RUN . ~/.bashrc && \
+#	cd /var/www/survey-designer && \
+#	npm install jspm@0.16.42 && \
+#	npm install
 
 #RUN . ~/.bashrc && \
 #	cd /var/www/survey-designer && \
@@ -56,15 +81,13 @@ RUN . ~/.bashrc && \
 # survey-preview related
 COPY ./include/survey-preview /var/www/survey-preview
 
-RUN . ~/.bashrc && \
-	cd /var/www/survey-preview && \
-	npm install && \
+WORKDIR /var/www/survey-preview
+
+RUN npm install && \
 	npm run bundle
 
 # survey-viewer related
 COPY ./include/fieldtrip-viewer /var/www/fieldtrip-viewer
-
-COPY ./config_files/000-default.conf /etc/apache2/sites-available
 
 # Upload an example survey
 COPY ./include/survey_test.json /var/www

@@ -22,11 +22,12 @@ Otherwise, you can clone this repository and all its dependencies at once by typ
 The process of building a docker image for fieldtrip-open requires:
 
 ```bash
-	docker build -t fieldtrip-open .
+	docker build --build-arg JSPM_GITHUB_AUTH=<your_personal_access_token> -t fieldtrip-open .
 ```
 
-Note that fieldtrip-open is the image name given but you can give to docker build another image name. We have ommitted the
-version so for your docker machine will automatically rename the version to 'latest'.
+The build-time requires a defined value for JSPM_GITHUB_AUTH. Please, use or generate a new personal access token at your github account
+and assign it to JSPM_GITHUB_AUTH argument. Note, this token is needed in order to install some packages from [jspm](http://jspm.io/) that are 
+required for the survey-designer.
 
 ## Run
 
@@ -38,14 +39,14 @@ type:
 ```
 
 The above command will execute a container on the port 8080 of your machine and it will be detached automatically. Remember,
-fieldtrip-open is the name given when docker build is executed.
+fieldtrip-open is the image name given when docker build is executed.
 
 ## Try it out!
 
 There are different endpoints for fieldtrip-open ecosystem:
 
 * PCAPI: [http://0.0.0.0:8080/1.3/pcapi](http://0.0.0.0:8080/1.3/pcapi)
-* Survey designer: [http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer](http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer) (not working yet!)
+* Survey designer: [http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer](http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer)
 * Survey preview: [http://0.0.0.0:8080/preview/#/?sid=survey_test](http://0.0.0.0:8080/preview/#/?sid=survey_test)
 * Records viewer: [http://0.0.0.0:8080/viewer/?sid=survey_test](http://0.0.0.0:8080/viewer/?sid=survey_test)
 
