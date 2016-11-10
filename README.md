@@ -3,7 +3,7 @@
 This repository is intended to dockerise the fieldtrip-open ecosystem. This project requires a machine with docker installed
 in order to build the image for fieldtrip-open and consequently run containers.
 
-The dockerised version of fieldtrip-open has some dependencies, i.e. a workable docker image required cloning its different
+The dockerised version of fieldtrip-open has some dependencies, i.e. a workable docker image requires cloning its different
 submodules. If you have already cloned this repository, please type:
 
 ```bash
