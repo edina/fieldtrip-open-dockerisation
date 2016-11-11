@@ -2,7 +2,22 @@ FROM ubuntu:16.04
 
 MAINTAINER Jose Lloret - jose.lloret@ed.ac.uk
 
+# ARGs needed to build the image
+
 ARG JSPM_GITHUB_AUTH
+ARG GROUP=pcapi
+ARG USER=pcapi
+ARG USER_HOME=/home/${USER}
+ARG UID=1000
+ARG GID=1000
+
+# Mapping ARG to ENV since these are used while running container
+
+ENV GROUP ${GROUP}
+ENV USER ${USER}
+ENV USER_HOME ${USER_HOME}
+ENV UID ${UID}
+ENV GID ${GID}
 
 # http related
 RUN apt-get update && \
@@ -18,6 +33,9 @@ RUN apt-get install -y \
 			python-pip	\
 			libapache2-mod-wsgi
 # PCAPI related
+
+RUN groupadd -g ${GID} ${GROUP} && useradd -d ${USER_HOME} -u ${UID} -g ${GID} ${USER}
+
 RUN apt-get install -y \
 			git \
 			libpq-dev \
@@ -25,78 +43,51 @@ RUN apt-get install -y \
 	pip install --upgrade pip && \
 	pip install virtualenv
 
-COPY ./include/pcapi /var/www/pcapienv
+COPY ./include/pcapi ${USER_HOME}/pcapienv
 
-RUN	cd /var/www && \
-	virtualenv pcapienv && \
+COPY ./config_files/survey_test.json ${USER_HOME}
+
+COPY ./config_files/start.sh ${USER_HOME}
+
+WORKDIR ${USER_HOME}
+
+RUN	virtualenv pcapienv && \
 	cd pcapienv && \
 	. bin/activate && \
-	pip install -e . && \
-	chown -R www-data:www-data /var/www
+	pip install -e .
+
+RUN chown -R ${USER}:${GROUP} .
 
 # survey-designer related
 
 RUN apt-get -y install \
         	nodejs \
-       		npm
+       		npm \
+       		git
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-COPY ./include/survey-designer /var/www/survey-designer
+COPY ./include/survey-designer ${USER_HOME}/survey-designer
 
-WORKDIR /var/www/survey-designer
-
-RUN npm install
-
-RUN apt-get -y install git
-
-RUN ./node_modules/jspm/jspm.js config registries.github.auth ${JSPM_GITHUB_AUTH}
-
-RUN ./node_modules/jspm/jspm.js install -y
-
-RUN npm run bundle
-
-#RUN apt-get -y install build-essential \
-#	libssl-dev \
-#	curl \
-#	libfontconfig && \
-#	curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
-
-#RUN . ~/.bashrc && \
-#	nvm install 4.0 && \
-#	nvm alias default v4.0
-
-# COPY ./include/survey-designer /var/www/survey-designer
-
-#RUN . ~/.bashrc && \
-#	cd /var/www/survey-designer && \
-#	npm install jspm@0.16.42 && \
-#	npm install
-
-#RUN . ~/.bashrc && \
-#	cd /var/www/survey-designer && \
-#	./node_modules/jspm/jspm.js install -y && \
-#	npm run bundle
+RUN cd survey-designer  && \
+	npm install && \
+	./node_modules/jspm/jspm.js config registries.github.auth ${JSPM_GITHUB_AUTH} && \
+	./node_modules/jspm/jspm.js install -y && \
+	npm run bundle
 
 # survey-preview related
-COPY ./include/survey-preview /var/www/survey-preview
+COPY ./include/survey-preview ${USER_HOME}/survey-preview
 
-WORKDIR /var/www/survey-preview
-
-RUN npm install && \
+RUN cd survey-preview && \
+	npm install && \
 	npm run bundle
 
 # survey-viewer related
-COPY ./include/fieldtrip-viewer /var/www/fieldtrip-viewer
+COPY ./include/fieldtrip-viewer ${USER_HOME}/fieldtrip-viewer
 
-# Upload an example survey
-COPY ./include/survey_test.json /var/www
+# Dependencies needed to run start.sh script
 
 RUN apt-get install -y curl
 
-RUN service apache2 start && \
-	cd /var/www && \
-	curl -v -H "Content-Type: application/json" -X PUT --data-binary "@survey_test.json" http://0.0.0.0/1.3/pcapi/editors/local/00000000-0000-0000-0000-000000000000/survey_test.json
-
-# When the container is initialised
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+# Defaults for executing a container 
+CMD ["bash","start.sh"]

@@ -1,3 +1,0 @@
-{"title":"Test survey","geoms":["point"],"recordLayout":{"headers":[]},"fields":[{"id":"text-1","type"
-:"text","required":false,"persistent":false,"properties":{"prefix":"","placeholder":"","max-chars":"10"
-},"label":"This is a label modified by CURL"}],"extra":[]}

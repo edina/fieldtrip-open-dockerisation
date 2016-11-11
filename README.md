@@ -41,6 +41,15 @@ type:
 The above command will execute a container on the port 8080 of your machine and it will be detached automatically. Remember,
 fieldtrip-open is the image name given when docker build is executed.
 
+If you want your data to be persisted, please run:
+
+```bash
+	docker run -p 8080:80 -d -v <host_src>:/home/pcapi/.pcapi fieldtrip-open
+```
+
+Note that /home/pcapi is the default argument for $USER_HOME that is defined within the Dockerfile. If you set this argument
+while building the image, please change it before executing the above command.
+
 ## Try it out!
 
 There are different endpoints for fieldtrip-open ecosystem:
