@@ -45,7 +45,9 @@ RUN apt-get install -y \
 
 COPY ./include/pcapi ${USER_HOME}/pcapienv
 
-COPY ./config_files/survey_test.json ${USER_HOME}
+COPY ./include/survey_test.json ${USER_HOME}
+
+COPY ./include/survey_test ${USER_HOME}/survey_test
 
 COPY ./config_files/start.sh ${USER_HOME}
 
