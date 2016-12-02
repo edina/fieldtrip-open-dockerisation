@@ -87,6 +87,12 @@ RUN cd survey-preview && \
 # survey-viewer related
 COPY ./include/fieldtrip-viewer ${USER_HOME}/fieldtrip-viewer
 
+# app-linker related
+COPY ./include/app-linker ${USER_HOME}/app-linker
+
+RUN cd app-linker && \
+	npm install
+
 # Dependencies needed to run start.sh script
 
 RUN apt-get install -y curl
