@@ -3,19 +3,24 @@
 This repository is intended to dockerise the fieldtrip-open ecosystem. This project requires a machine with docker installed
 in order to build the image for fieldtrip-open and consequently run containers.
 
-The dockerised version of fieldtrip-open has some dependencies, i.e. a workable docker image requires cloning its different
-submodules. If you have already cloned this repository, please type:
+The dockerised version of fieldtrip-open has some dependencies, please run the following commands after cloning:
+```bash
+	$git submodule init
+	$git submodule update
+```
+or make sure that you clone this repository and all its dependencies at once by typping:
+```bash
+	$git clone --recursive https://github.com/edina/fieldtrip-open-dockerisation.git 
+```
+
+As this repository or its dependencies may be exposed to updates, may sure that you execute:
 
 ```bash
 	$git pull origin master
 	$git submodule foreach git pull origin master
 ```
 
-Otherwise, you can clone this repository and all its dependencies at once by typping:
-
-```bash
-	$git clone --recursive https://github.com/edina/fieldtrip-open-dockerisation.git 
-```
+for any new commit.
 
 ## Build
 
