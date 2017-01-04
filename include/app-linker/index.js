@@ -2,8 +2,8 @@
 	'use strict';
 	var URLs = {
 		app: 'cityscope://?pcapi='+window.location.protocol+'//'+window.location.host,
-		itunes : 'https://itunes.apple.com/us/app/bulwell-cat-watch/id1146766708?mt=8',
-		play : 'https://play.google.com/store/apps/details?id=uk.ac.edina.cps&hl=en_GB'
+		itunes : 'https://itunes.apple.com/us/app/edinburgh-cityScope-fieldtrip/id1185821739?mt=8',
+		play : 'http://edina.ac.uk/contact'
 	};
 	window.onload = function(){
 		document.getElementById('itunes').setAttribute('href',URLs.itunes);

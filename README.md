@@ -61,7 +61,7 @@ There are different endpoints for fieldtrip-open ecosystem:
 
 * PCAPI: [http://0.0.0.0:8080/1.3/pcapi](http://0.0.0.0:8080/1.3/pcapi)
 * Survey designer: [http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer](http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer)
-* Survey preview: [http://0.0.0.0:8080/preview/#/?sid=survey_test](http://0.0.0.0:8080/preview/#/?sid=survey_test)
+* Survey preview: [http://0.0.0.0:8080/preview/#!/?sid=survey_test](http://0.0.0.0:8080/preview/#!/?sid=survey_test)
 * Records viewer: [http://0.0.0.0:8080/viewer/?sid=survey_test](http://0.0.0.0:8080/viewer/?sid=survey_test)
 
 Remember to change the host/port if your docker container is not running on localhost port 8080.

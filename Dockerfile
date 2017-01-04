@@ -90,6 +90,9 @@ COPY ./include/fieldtrip-viewer ${USER_HOME}/fieldtrip-viewer
 # app-linker related
 COPY ./include/app-linker ${USER_HOME}/app-linker
 
+# healthcheck related
+COPY ./include/healthcheck ${USER_HOME}/healthcheck
+
 RUN cd app-linker && \
 	npm install
 
