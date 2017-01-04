@@ -24,15 +24,16 @@ for any new commit.
 
 ## Build
 
-The process of building a docker image for fieldtrip-open requires:
+To build a docker image, please type:
+```bash
+	docker build -t fieldtrip-open .
+```
 
+If the above command fails, please type:
 ```bash
 	docker build --build-arg JSPM_GITHUB_AUTH=<your_personal_access_token> -t fieldtrip-open .
 ```
-
-The build-time requires a defined value for JSPM_GITHUB_AUTH. Please, use or generate a new personal access token at your github account
-and assign it to JSPM_GITHUB_AUTH argument. Note, this token is needed in order to install some packages from [jspm](http://jspm.io/) that are 
-required for the survey-designer.
+which passes your personal access token from your github account in order to install some dependencies for survey-designer at its package manager, i.e. [jspm](http://jspm.io/).
 
 ## Run
 
