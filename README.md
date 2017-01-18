@@ -50,22 +50,12 @@ fieldtrip-open is the image name given when docker build is executed.
 If you want your data to be persisted, please run:
 
 ```bash
-	docker run -p 8080:80 -d -v <host_src>:/home/pcapi/.pcapi fieldtrip-open
+	docker run -p 8080:80 -d -v <host_src>:/data fieldtrip-open
 ```
-
-Note that /home/pcapi is the default argument for $USER_HOME that is defined within the Dockerfile. If you set this argument
-while building the image, please change it before executing the above command.
 
 ## Try it out!
 
-There are different endpoints for fieldtrip-open ecosystem:
-
-* PCAPI: [http://0.0.0.0:8080/1.3/pcapi](http://0.0.0.0:8080/1.3/pcapi)
-* Survey designer: [http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer](http://0.0.0.0:8080/designer?sid=survey_test#/survey-designer)
-* Survey preview: [http://0.0.0.0:8080/preview/#!/?sid=survey_test](http://0.0.0.0:8080/preview/#!/?sid=survey_test)
-* Records viewer: [http://0.0.0.0:8080/viewer/?sid=survey_test](http://0.0.0.0:8080/viewer/?sid=survey_test)
-
-Remember to change the host/port if your docker container is not running on localhost port 8080.
+Go to [http://0.0.0.0:8080/](http://0.0.0.0:8080/). Remember to change the host/port if you executed docker run on a different host/port.
 
 
 

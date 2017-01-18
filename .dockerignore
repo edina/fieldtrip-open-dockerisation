@@ -1,1 +1,4 @@
 **/.git
+include/survey-designer/node_modules
+include/survey-preview/node_modules
+include/app-linker/node_modules

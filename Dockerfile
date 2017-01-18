@@ -58,6 +58,8 @@ RUN	virtualenv pcapienv && \
 	. bin/activate && \
 	pip install -e .
 
+RUN mkdir .pcapi
+
 RUN chown -R ${USER}:${GROUP} .
 
 # survey-designer related
@@ -90,15 +92,18 @@ COPY ./include/fieldtrip-viewer ${USER_HOME}/fieldtrip-viewer
 # app-linker related
 COPY ./include/app-linker ${USER_HOME}/app-linker
 
-# healthcheck related
-COPY ./include/healthcheck ${USER_HOME}/healthcheck
-
 RUN cd app-linker && \
 	npm install
 
-# Dependencies needed to run start.sh script
+# healthcheck related
+COPY ./include/healthcheck ${USER_HOME}/healthcheck
 
+# Dependencies needed to run start.sh script
 RUN apt-get install -y curl
 
+# Mount point for data
+RUN ln -s ${USER_HOME}/.pcapi /data && chown -R ${USER}:${GROUP} /data
+VOLUME /data
+
 # Defaults for executing a container 
-CMD ["bash","start.sh"]
+ENTRYPOINT ["bash","start.sh"]
