@@ -103,7 +103,6 @@ RUN apt-get install -y curl
 
 # Mount point for data
 RUN ln -s ${USER_HOME}/.pcapi /data && chown -R ${USER}:${GROUP} /data
-VOLUME /data
 
 # Defaults for executing a container 
 ENTRYPOINT ["bash","start.sh"]

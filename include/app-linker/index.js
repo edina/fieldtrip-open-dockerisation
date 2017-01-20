@@ -3,7 +3,7 @@
 	var URLs = {
 		app: 'cityscope://?pcapi='+location.href,
 		itunes : 'https://itunes.apple.com/us/app/edinburgh-cityScope-fieldtrip/id1185821739?mt=8',
-		surveyDesigner: location.href+'designer?sid=survey_test#/survey-designer',
+		surveyDesigner: location.href+'designer/?sid=survey_test#/survey-designer',
 		surveyPreviewer: location.href+'preview/#!/?sid=survey_test',
 		recordsViewer: location.href+'viewer/?sid=survey_test'
 	};

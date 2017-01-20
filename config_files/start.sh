@@ -10,6 +10,11 @@ else
 	echo 'Error starting apache'
 fi
 
+if [ "${BASEURL}" != "" ]; then
+    sed -i 's|"baseurl": ""|"baseurl": "//'${BASEURL}'"|g' ${USER_HOME}/survey-designer/config/env.json
+    sed -i 's|"baseUrl": ""|"baseUrl": "//'${BASEURL}'"|g' ${USER_HOME}/survey-preview/dist/env.json
+fi
+
 /usr/sbin/apache2ctl graceful-stop
 
 /usr/sbin/apache2ctl -D FOREGROUND
