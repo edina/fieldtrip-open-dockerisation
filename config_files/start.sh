@@ -11,7 +11,7 @@ else
 fi
 
 if [ "${BASEURL}" != "" ]; then
-    sed -i 's|"baseurl": ""|"baseurl": "//'${BASEURL}'"|g' ${USER_HOME}/survey-designer/config/env.json
+    sed -i 's|baseurl:""|baseurl:"//'${BASEURL}'"|g' ${USER_HOME}/survey-designer/dist/main.js
     sed -i 's|"baseUrl": ""|"baseUrl": "//'${BASEURL}'"|g' ${USER_HOME}/survey-preview/dist/env.json
 fi
 
